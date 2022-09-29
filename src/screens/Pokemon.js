@@ -54,7 +54,7 @@ export default function Pokemon(props) {
 
       <Type types={pokemon.types} />
       <Stats stats={pokemon.stats} />
-
+      
     </ScrollView>
   )
 }
