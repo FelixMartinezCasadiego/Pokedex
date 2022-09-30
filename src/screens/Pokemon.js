@@ -5,6 +5,8 @@ import Header from '../components/pokemon/Header';
 import Type from '../components/pokemon/Type';
 import Stats from '../components/pokemon/Stats';
 import Icon from "react-native-vector-icons/FontAwesome5";
+import Favorite from '../components/pokemon/Favorite';
+import useAuth from '../hooks/useAuth';
 
 export default function Pokemon(props) {
 
@@ -15,19 +17,20 @@ export default function Pokemon(props) {
 
   const [pokemon, setPokemon] = useState(null);
 
+  const {auth} = useAuth();
+
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => (auth ? <Favorite id={pokemon?.id} /> : undefined) ,
       headerLeft: () => (<Icon 
                           name="arrow-left" 
                           color="#fff" 
                           size={20}
                           style={{marginLeft: 20}} 
-                          onPress={()=> console.log("Go back")}
+                          onPress={navigation.goBack}
                         />),
     });
-  }, [navigation, params])
-  
+  }, [navigation, params, pokemon]);
 
   useEffect(() => {
     (async () => {
